@@ -15,6 +15,8 @@
 你可以在 [发行版本](https://gitee.com/tidys/plugin-case-hot-update-res-server/releases/1.0.0) 中手动下载自己想要测试的平台包，方便用来测试验证本DEMO的热更新功能。
 - [win32.exe](https://files.gitee.com/group1/M00/10/CF/wKgCNF9Awp6ALnIPAhk1n2gTocE199.zip?token=203e5951353022467fbda42b083cff74&ts=1598080968&attname=win32.zip&disposition=attachment) ：直接下载解压后，即可使用 
   ![](doc/285ce852.png)
+  ![](doc/win-use.gif)
+  - windows的热更缓存位置`C:\Users\Administrator\AppData\Local\hot-update-tools\remote-asset`
 
 - [android.apk]()
 
