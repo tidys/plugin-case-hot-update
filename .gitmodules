@@ -1,0 +1,3 @@
+[submodule "packages/hot-update-tools"]
+	path = packages/hot-update-tools
+	url = git@github.com:cocos-creator-plugin/hot-update-tools.git
