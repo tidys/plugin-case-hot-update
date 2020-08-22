@@ -1,0 +1,22 @@
+{
+  "name": "hot-update-tools",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "pack": "node ./pack.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cocos-creator-plugin/hot-update-tools.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cocos-creator-plugin/hot-update-tools/issues"
+  },
+  "homepage": "https://github.com/cocos-creator-plugin/hot-update-tools#readme",
+  "dependencies": {
+    "cc-plugin-packer": "^1.0.0"
+  }
+}
