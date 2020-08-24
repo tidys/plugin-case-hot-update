@@ -3,6 +3,7 @@
 热更新工具配套的热更新DEMO
 
 - [工具配套文档](https://tidys.github.io/plugin-docs-oneself/docs/hot-update-tools/)
+- [热更新参考脚本逻辑](assets/hot-update/HotUpdate.ts) 
 
 ## 热更后的游戏
 本DEMO游戏热更后，版本为3.0，[点击预览](http://tidys.gitee.io/plugin-case-hot-update-res-server/web-mobile/)
