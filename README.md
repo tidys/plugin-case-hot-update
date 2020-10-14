@@ -19,7 +19,7 @@
   ![](doc/win-use.gif)
   - windows的热更缓存位置`C:\Users\Administrator\AppData\Local\hot-update-tools\remote-asset`
 
-- [android.apk]()
+- [android.apk]()：暂无
 
 
 
