@@ -268,7 +268,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        0,
+        -180.748,
         0,
         0,
         0,
@@ -307,7 +307,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "游戏主场景，未热更新前的游戏",
     "_N$string": "游戏主场景，未热更新前的游戏",
     "_fontSize": 40,

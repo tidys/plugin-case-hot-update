@@ -2,7 +2,8 @@
   "engine": "cocos-creator-js",
   "packages": "packages",
   "name": "hot-update",
-  "id": "4a47cffe-fb28-4b4c-b371-1efe6d9e7353",
-  "version": "2.4.0",
-  "isNew": false
+  "id": "93d1906d-2059-4802-81bf-9ca352830f6d",
+  "version": "2.4.11",
+  "isNew": false,
+  "description": ""
 }

@@ -51,9 +51,10 @@ export default class NewClass extends cc.Component {
         options.OnNoNeedToUpdate = () => {
             this._enterGame();
         };
-        options.OnUpdateFailed = () => {
-            this.tipsLabel.string = '更新失败';
-            cc.log('热更新失败');
+        options.OnUpdateFailed = (code:number) => {
+            const msg = `更新失败:${code}`;
+            this.tipsLabel.string = msg;
+            cc.log(msg);
             DialogMgr.showTipsWithOkBtn('更新失败,点击重试', () => {
                 HotUpdate.checkUpdate();
             });

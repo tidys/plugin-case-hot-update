@@ -64,6 +64,19 @@ class Hot {
     _hotUpdateCallBack(event: jsb.EventAssetsManager) {
         let code = event.getEventCode();
         cc.log(`hotUpdate Code: ${code}`);
+        const { ERROR_NO_LOCAL_MANIFEST,
+            ERROR_DOWNLOAD_MANIFEST,
+            ERROR_PARSE_MANIFEST,
+            ERROR_UPDATING,
+            ERROR_DECOMPRESS,
+        } = jsb.EventAssetsManager;
+        const codeMsg = {};
+        codeMsg[ERROR_NO_LOCAL_MANIFEST.toString()] = "未找到manifest";
+        codeMsg[ERROR_DOWNLOAD_MANIFEST.toString()] = "下载manifest失败";
+        codeMsg[ERROR_PARSE_MANIFEST.toString()] = "解析manifest失败";
+        codeMsg[ERROR_UPDATING.toString()] = "更新失败";
+        codeMsg[ERROR_DECOMPRESS.toString()] = "解压失败";
+
         switch (code) {
             case jsb.EventAssetsManager.ALREADY_UP_TO_DATE:
                 cc.log("已经和远程版本一致，无须更新");
@@ -89,6 +102,7 @@ class Hot {
                 // 不予理会的消息事件
                 break;
             default:
+                cc.log(`error code msg: ${codeMsg[code.toString()]}`);
                 this._onUpdateFailed(code);
                 break;
         }
