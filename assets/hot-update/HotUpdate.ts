@@ -1,10 +1,13 @@
+export type HotCallback = (event: jsb.EventAssetsManager) => void;
+export type VersionData = { local: string, server: string };
+export type VersionCallback = (param: VersionData) => void;
 export class HotOptions {
-    OnVersionInfo: Function;
-    OnNeedToUpdate: Function;
-    OnNoNeedToUpdate: Function;
-    OnUpdateFailed: Function;
-    OnUpdateSucceed: Function;
-    OnUpdateProgress: Function;
+    OnVersionInfo: VersionCallback;
+    OnNeedToUpdate: HotCallback;
+    OnNoNeedToUpdate: HotCallback;
+    OnUpdateFailed: HotCallback;
+    OnUpdateSucceed: HotCallback;
+    OnUpdateProgress: HotCallback;
 
     check() {
         for (let key in this) {
@@ -80,11 +83,11 @@ class Hot {
         switch (code) {
             case jsb.EventAssetsManager.ALREADY_UP_TO_DATE:
                 cc.log("已经和远程版本一致，无须更新");
-                this._options.OnNoNeedToUpdate && this._options.OnNoNeedToUpdate(code)
+                this._options.OnNoNeedToUpdate && this._options.OnNoNeedToUpdate(event)
                 break;
             case jsb.EventAssetsManager.NEW_VERSION_FOUND:
                 cc.log('发现新版本,请更新');
-                this._options.OnNeedToUpdate && this._options.OnNeedToUpdate(code);
+                this._options.OnNeedToUpdate && this._options.OnNeedToUpdate(event);
                 break;
             case jsb.EventAssetsManager.UPDATE_PROGRESSION:
                 cc.log('更新中...')
@@ -96,7 +99,7 @@ class Hot {
                 break;
             case jsb.EventAssetsManager.UPDATE_FINISHED:
                 cc.log('更新成功');
-                this._onUpdateFinished();
+                this._onUpdateFinished(event);
                 break;
             case jsb.EventAssetsManager.ASSET_UPDATED:
                 // 不予理会的消息事件
@@ -114,7 +117,7 @@ class Hot {
     }
 
     // 更新完成
-    _onUpdateFinished() {
+    _onUpdateFinished(event: jsb.EventAssetsManager) {
         this._assetsMgr.setEventCallback(null)
         let searchPaths = jsb.fileUtils.getSearchPaths();
         let newPaths = this._assetsMgr.getLocalManifest().getSearchPaths();
@@ -123,7 +126,7 @@ class Hot {
         cc.sys.localStorage.setItem('HotUpdateSearchPaths', JSON.stringify(searchPaths));
 
         jsb.fileUtils.setSearchPaths(searchPaths);
-        this._options.OnUpdateSucceed && this._options.OnUpdateSucceed();
+        this._options.OnUpdateSucceed && this._options.OnUpdateSucceed(event);
     }
 
     showSearchPath() {
@@ -158,7 +161,7 @@ class Hot {
         this._assetsMgr = new jsb.AssetsManager(url, storagePath, (versionA, versionB) => {
             // 比较版本
             cc.log("客户端版本: " + versionA + ', 当前最新版本: ' + versionB);
-            this._options.OnVersionInfo({local: versionA, server: versionB});
+            this._options.OnVersionInfo({ local: versionA, server: versionB });
             let vA = versionA.split('.');
             let vB = versionB.split('.');
             for (let i = 0; i < vA.length; ++i) {
@@ -175,7 +178,7 @@ class Hot {
             }
         });
         this._assetsMgr.setVerifyCallback((assetsFullPath, asset) => {
-            let {compressed, md5, path, size} = asset;
+            let { compressed, md5, path, size } = asset;
             if (compressed) {
                 return true;
             } else {

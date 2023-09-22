@@ -1,23 +1,23 @@
-import HotUpdate, {HotOptions} from "./HotUpdate";
+import HotUpdate, { HotOptions, VersionData } from "./HotUpdate";
 import DialogMgr from "./DialogMgr";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class NewClass extends cc.Component {
-    @property({displayName: 'project.manifest', type: cc.Asset,})
+    @property({ displayName: 'project.manifest', type: cc.Asset, })
     manifest: cc.Asset = null;
 
-    @property({displayName: '版本号', type: cc.Label,})
+    @property({ displayName: '版本号', type: cc.Label, })
     versionLabel: cc.Label = null;
 
-    @property({displayName: '热更新进度条', type: cc.ProgressBar})
+    @property({ displayName: '热更新进度条', type: cc.ProgressBar })
     updateProgress: cc.ProgressBar = null;
 
-    @property({displayName: '消息提示', type: cc.Label})
+    @property({ displayName: '消息提示', type: cc.Label })
     tipsLabel: cc.Label = null;
 
-    @property({displayName: '添加节点', type: cc.Node})
+    @property({ displayName: '添加节点', type: cc.Node })
     addNode: cc.Node = null;
 
 
@@ -26,8 +26,8 @@ export default class NewClass extends cc.Component {
         this._initView();
 
         let options = new HotOptions();
-        options.OnVersionInfo = (data) => {
-            let {local, server} = data;
+        options.OnVersionInfo = (data: VersionData) => {
+            let { local, server } = data;
             this.versionLabel.string = `本地版本号:${local}, 服务器版本号:${server}`;
         };
         options.OnUpdateProgress = (event: jsb.EventAssetsManager) => {
@@ -43,15 +43,18 @@ export default class NewClass extends cc.Component {
             this.tipsLabel.string = '正在更新中,请耐心等待';
             console.log(msg);
         };
-        options.OnNeedToUpdate = (data) => {
-            DialogMgr.showTipsWithOkBtn('检测到新版本,点击确定开始更新', () => {
+        options.OnNeedToUpdate = (event: jsb.EventAssetsManager) => {
+            const fileSize = event.getTotalBytes();
+            const fileCount = event.getTotalFiles();
+            DialogMgr.showTipsWithOkBtn(`检测到新版本,一共${fileCount}个文件:${fileSize}Kb\n点击确定开始更新`, () => {
                 HotUpdate.hotUpdate();
             });
         };
         options.OnNoNeedToUpdate = () => {
             this._enterGame();
         };
-        options.OnUpdateFailed = (code:number) => {
+        options.OnUpdateFailed = (event: jsb.EventAssetsManager) => {
+            const code: number = event.getEventCode();
             const msg = `更新失败:${code}`;
             this.tipsLabel.string = msg;
             cc.log(msg);
