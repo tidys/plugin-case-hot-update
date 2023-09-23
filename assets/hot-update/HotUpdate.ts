@@ -68,6 +68,12 @@ class Hot {
         let code = event.getEventCode();
         cc.log(`hotUpdate Code: ${code}`);
         const { ERROR_NO_LOCAL_MANIFEST,
+            NEW_VERSION_FOUND,
+            ALREADY_UP_TO_DATE,
+            UPDATE_PROGRESSION,
+            ASSET_UPDATED,
+            UPDATE_FAILED,
+            UPDATE_FINISHED,
             ERROR_DOWNLOAD_MANIFEST,
             ERROR_PARSE_MANIFEST,
             ERROR_UPDATING,
@@ -106,14 +112,14 @@ class Hot {
                 break;
             default:
                 cc.log(`error code msg: ${codeMsg[code.toString()]}`);
-                this._onUpdateFailed(code);
+                this._onUpdateFailed(event);
                 break;
         }
     }
 
-    _onUpdateFailed(code) {
+    _onUpdateFailed(event: jsb.EventAssetsManager) {
         this._assetsMgr.setEventCallback(null)
-        this._options.OnUpdateFailed && this._options.OnUpdateFailed(code);
+        this._options.OnUpdateFailed && this._options.OnUpdateFailed(event);
     }
 
     // 更新完成
