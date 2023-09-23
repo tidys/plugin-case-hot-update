@@ -1,5 +1,6 @@
 # 热更新工具配套的热更新DEMO
-
+demo是基于2.4.11开发的，如果你使用其他版本的creator测试该demo，因为engine不同，可能热更后的表现有异常。
+- [热更新源码剖析](https://juejin.cn/post/7281486769290215461)
 - [热更新插件使用文档](https://tidys.github.io/plugin-docs-oneself/docs/hot-update-tools/)
 - [热更新参考游戏脚本逻辑(ts版本)](assets/hot-update/HotUpdate.ts) 
 
@@ -26,7 +27,9 @@
 
 - [android.apk]()：暂无
 
-
+# 升级注意事项
+为了保证差异尽可能小，升级版本后，打远程的热更新包时的操作如下：
+![](./doc/upgrade-pack-remote.png)
 
 
 
