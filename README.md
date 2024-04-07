@@ -19,10 +19,15 @@ demo是基于2.4.11开发的，如果你使用其他版本的creator测试该dem
 ## 热更测试包
 我已经编译好了一个可运行的EXE游戏DEMO，并放到了Gitee，保证国内下载速度快
 
+> 问热更新问题前，请下载运行win32版本，好多人都是将这部分代码抄到自己项目后，出问题了，然后找我瞧瞧，查到最后大概率还是你项目代码的逻辑有问题。
+
 你可以在 [Gitee发行版本](https://gitee.com/tidys/plugin-case-hot-update-res-server/releases/1.0.0) 中手动下载自己想要测试的平台包，方便用来测试验证本DEMO的热更新功能。
 - [win32.exe](https://files.gitee.com/group1/M00/10/CF/wKgCNF9Awp6ALnIPAhk1n2gTocE199.zip?token=203e5951353022467fbda42b083cff74&ts=1598080968&attname=win32.zip&disposition=attachment) ：直接下载解压后，即可使用 
+  
   ![](doc/285ce852.png)
+
   ![](doc/win-use.gif)
+  
   - windows的热更缓存位置`C:\Users\Administrator\AppData\Local\hot-update-tools\remote-asset`
 
 - [android.apk]()：暂无
