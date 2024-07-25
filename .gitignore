@@ -60,3 +60,4 @@ workspace.xml
 hot-update-tools.iml
 out/
 hot-update-tools
+packages/
