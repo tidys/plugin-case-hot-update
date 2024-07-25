@@ -4,7 +4,7 @@ import DialogMgr from "./DialogMgr";
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class NewClass extends cc.Component {
+export default class HotUpdateScene extends cc.Component {
     @property({ displayName: 'project.manifest', type: cc.Asset, })
     manifest: cc.Asset = null;
 
