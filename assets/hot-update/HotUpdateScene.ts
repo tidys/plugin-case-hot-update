@@ -1,5 +1,5 @@
-import { _decorator, Asset, Component, director, game, Label, log, Node, ProgressBar, resources, sys } from 'cc';
-import DialogMgr from "./DialogMgr";
+import { _decorator, Asset, Component, director, game, instantiate, Label, log, Node, Prefab, ProgressBar, resources, sys } from 'cc';
+import { DialogLayer } from '../resources/DialogLayer';
 import HotUpdate, { HotOptions, VersionData } from "./HotUpdate";
 const { ccclass, property } = _decorator;
 
@@ -18,13 +18,12 @@ export default class HotUpdateScene extends Component {
     tipsLabel: Label = null;
 
     @property({ displayName: '添加节点', type: Node })
-    addNode: Node = null;
-
+    dialogNode: Node = null;
+    @property(Prefab)
+    prefabDialog: Prefab = null
 
     onLoad() {
-        resources.load("DialogLayer"); // preload prefab
         this._initView();
-
         let options = new HotOptions();
         options.OnVersionInfo = (data: VersionData) => {
             let { local, server } = data;
@@ -46,7 +45,7 @@ export default class HotUpdateScene extends Component {
         options.OnNeedToUpdate = (event: jsb.EventAssetsManager) => {
             const fileSize = event.getTotalBytes();
             const fileCount = event.getTotalFiles();
-            DialogMgr.showTipsWithOkBtn(`检测到新版本,一共${fileCount}个文件:${fileSize}Kb\n点击确定开始更新`, () => {
+            this.showTipsWithOkBtn(`检测到新版本,一共${fileCount}个文件:${fileSize}Kb\n点击确定开始更新`, () => {
                 HotUpdate.hotUpdate();
             });
         };
@@ -58,7 +57,7 @@ export default class HotUpdateScene extends Component {
             const msg = `更新失败:${code}`;
             this.tipsLabel.string = msg;
             log(msg);
-            DialogMgr.showTipsWithOkBtn('更新失败,点击重试', () => {
+            this.showTipsWithOkBtn('更新失败,点击重试', () => {
                 HotUpdate.checkUpdate();
             });
 
@@ -66,7 +65,7 @@ export default class HotUpdateScene extends Component {
         options.OnUpdateSucceed = () => {
             this.tipsLabel.string = '更新成功';
             log('更新成功');
-            DialogMgr.showTipsWithOkBtn('更新成功,点击确定重启游戏', () => {
+            this.showTipsWithOkBtn('更新成功,点击确定重启游戏', () => {
                 //  audioEngine.stopAll();
                 game.restart();
             });
@@ -74,13 +73,19 @@ export default class HotUpdateScene extends Component {
         HotUpdate.init(this.manifest, options);
 
     }
-
+    private showTipsWithOkBtn(word: string, okCb = null, cancelCb = null, closeCb = null) {
+        this.dialogNode.active = true;
+        let script = this.dialogNode.getComponent(DialogLayer);
+        if (script) {
+            script.showTipsWithOkBtn(word, okCb, cancelCb, closeCb);
+        }
+    }
 
     _initView() {
         this.tipsLabel.string = '';
         this.versionLabel.string = '';
         this.updateProgress.progress = 0;
-        this.addNode.destroyAllChildren();
+        this.dialogNode.active = false;
     }
 
     // 检查更新

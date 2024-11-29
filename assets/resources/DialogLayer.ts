@@ -44,7 +44,7 @@ export class DialogLayer extends Component {
             this._okCb();
         }
         if (this.node) {
-            this.node.destroy();
+            this.node.active = false;
         }
     }
     onClickBtnCancel() {
@@ -52,14 +52,14 @@ export class DialogLayer extends Component {
             this._cancelCb();
         }
         if (this.node) {
-            this.node.destroy();
+            this.node.active = false;
         }
     }
     onClickBtnClose() {
         if (this._closeCb) {
             this._closeCb();
         }
-        this.node.destroy();
+        this.node.active = false;
     }
 }
 
