@@ -1,16 +1,17 @@
+import { director, view, Prefab, resources, Node, instantiate } from 'cc'
+import { DialogLayer } from '../resources/DialogLayer';
 export default {
     showTipsWithOkBtn(word, okCb, cancelCb?, closeCb?) {
-        let scene = cc.director.getScene();
+        let scene = director.getScene();
         if (scene) {
-            let w = cc.view.getVisibleSize().width;
-            let h = cc.view.getVisibleSize().height;
-            cc.resources.load("DialogLayer", cc.Prefab, (err, prefab: cc.Prefab) => {
+            let w = view.getVisibleSize().width;
+            let h = view.getVisibleSize().height;
+            resources.load("DialogLayer", Prefab, (err, prefab: Prefab) => {
                 if (!err) {
-                    let layer = cc.instantiate(prefab);
-                    layer.x = w / 2;
-                    layer.y = h / 2;
+                    let layer = instantiate(prefab);
+                    layer.setPosition(w / 2, h / 2);
                     scene.addChild(layer);
-                    let script = layer.getComponent("DialogLayer");
+                    let script = layer.getComponent(DialogLayer);
                     if (script) {
                         script.showTipsWithOkBtn(word, okCb, cancelCb, closeCb);
                     }
@@ -19,17 +20,16 @@ export default {
         }
     },
     showTipsWithOkCancelBtn(word, okCb, cancelCb?, closeCb?, showCb?) {
-        let scene = cc.director.getScene();
+        let scene = director.getScene();
         if (scene) {
-            let w = cc.view.getVisibleSize().width;
-            let h = cc.view.getVisibleSize().height;
-            cc.resources.load("DialogLayer", cc.Prefab, (err, prefab: cc.Prefab) => {
+            let w = view.getVisibleSize().width;
+            let h = view.getVisibleSize().height;
+            resources.load("DialogLayer", Prefab, (err, prefab: Prefab) => {
                 if (!err) {
-                    let layer: cc.Node = cc.instantiate(prefab);
-                    layer.x = w / 2;
-                    layer.y = h / 2;
+                    let layer: Node = instantiate(prefab);
+                    layer.setPosition(w / 2, h / 2);
                     scene.addChild(layer);
-                    let script = layer.getComponent("DialogLayer");
+                    let script = layer.getComponent(DialogLayer);
                     if (script) {
                         script.showTipsWithOkCancelBtn(word, okCb, cancelCb, closeCb);
                     }
@@ -42,17 +42,16 @@ export default {
     },
     // 只有一个确定按钮
     showTipsWithOkBtnAndNoCloseBtn(word, okCb, cancelCb?, showCb?) {
-        let scene = cc.director.getScene();
+        let scene = director.getScene();
         if (scene) {
-            let w = cc.view.getVisibleSize().width;
-            let h = cc.view.getVisibleSize().height;
-            cc.resources.load("DialogLayer", (err, prefab: cc.Prefab) => {
+            let w = view.getVisibleSize().width;
+            let h = view.getVisibleSize().height;
+            resources.load("DialogLayer", (err, prefab: Prefab) => {
                 if (!err) {
-                    let layer: cc.Node = cc.instantiate(prefab);
-                    layer.x = w / 2;
-                    layer.y = h / 2;
+                    let layer: Node = instantiate(prefab);
+                    layer.setPosition(w / 2, h / 2);
                     scene.addChild(layer);
-                    let script = layer.getComponent("DialogLayer");
+                    let script = layer.getComponent(DialogLayer);
                     if (script) {
                         script.showTipsWithOkBtn(word, okCb, cancelCb);
                         script.setCloseBtnVisible();

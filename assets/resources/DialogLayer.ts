@@ -1,22 +1,23 @@
-cc.Class({
-    extends: cc.Component,
+import { _decorator, Component, Label, Node } from 'cc'
+const { ccclass, property } = _decorator
+@ccclass("DialogLayer")
 
-    properties: {
-        okBtn: {displayName: "确定按钮", default: null, type: cc.Node},
-        cancelBtn: {displayName: "取消按钮", default: null, type: cc.Node},
-        closeBtn: {displayName: "关闭按钮", default: null, type: cc.Node},
+export class DialogLayer extends Component {
+    @property({ type: Node })
+    okBtn: Node = null
+    @property({ type: Node })
+    cancelBtn: Node = null
+    @property({ type: Node })
+    closeBtn: Node = null
+    @property(Label)
+    tipsLabel: Label = null
 
-        tipsLabel: {displayName: "提示语", default: null, type: cc.Label},
+    _okCb = null;
+    _cancelCb = null;
+    _closeCb = null;
 
-        _okCb: null,
-        _cancelCb: null,
-        _closeCb: null,
-    },
 
-    onLoad () {
-
-    },
-    showTipsWithOkBtn(word, okCb, cancelCb, closeCb) {
+    showTipsWithOkBtn(word, okCb, cancelCb, closeCb = null) {
         this.okBtn.active = true;
         this.cancelBtn.active = false;
         this.tipsLabel.string = word;
@@ -24,7 +25,7 @@ cc.Class({
         this._okCb = okCb;
         this._cancelCb = cancelCb;
         this._closeCb = closeCb;
-    },
+    }
     showTipsWithOkCancelBtn(word, okCb, cancelCb, closeCb) {
         this.okBtn.active = true;
         this.cancelBtn.active = true;
@@ -33,10 +34,10 @@ cc.Class({
         this._okCb = okCb;
         this._cancelCb = cancelCb;
         this._closeCb = closeCb;
-    },
-    setCloseBtnVisible(b) {
+    }
+    setCloseBtnVisible(b = false) {
         this.closeBtn.active = b;
-    },
+    }
     onClickBtnOk() {
         //添加声音资源
         if (this._okCb) {
@@ -45,7 +46,7 @@ cc.Class({
         if (this.node) {
             this.node.destroy();
         }
-    },
+    }
     onClickBtnCancel() {
         if (this._cancelCb) {
             this._cancelCb();
@@ -53,13 +54,14 @@ cc.Class({
         if (this.node) {
             this.node.destroy();
         }
-    },
+    }
     onClickBtnClose() {
         if (this._closeCb) {
             this._closeCb();
         }
         this.node.destroy();
-    },
-})
+    }
+}
+
 
 

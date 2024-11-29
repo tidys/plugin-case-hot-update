@@ -1,6 +1,12 @@
 {
-  "ver": "1.0.3",
-  "uuid": "a1d2694c-d3e7-4fd9-b7fc-58b171be56b1",
-  "importer": "asset",
-  "subMetas": {}
+  "ver": "1.0.0",
+  "importer": "*",
+  "imported": true,
+  "uuid": "40ac81f1-e6d7-44ad-8bf7-bd76dc89650a",
+  "files": [
+    ".manifest",
+    ".json"
+  ],
+  "subMetas": {},
+  "userData": {}
 }
