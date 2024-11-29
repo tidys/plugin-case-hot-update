@@ -1,14 +1,18 @@
 import { director, view, Prefab, resources, Node, instantiate, find } from 'cc'
 import { DialogLayer } from '../resources/DialogLayer';
+function addToCanvas(node: Node) {
+    const canvas = find("Canvas");
+    if (canvas) {
+        node.setPosition(0, 0);
+        canvas.addChild(node);
+    }
+}
 export default {
     showTipsWithOkBtn(word: string, okCb = null, cancelCb = null, closeCb = null) {
-
-        let w = view.getVisibleSize().width;
-        let h = view.getVisibleSize().height;
         resources.load("DialogLayer", Prefab, (err, prefab: Prefab) => {
             if (!err) {
                 let layer = instantiate(prefab);
-                this.addToCanvas(layer);
+                addToCanvas(layer);
 
                 let script = layer.getComponent(DialogLayer);
                 if (script) {
@@ -18,14 +22,11 @@ export default {
         });
 
     },
-    showTipsWithOkCancelBtn(word, okCb, cancelCb?, closeCb?, showCb?) {
-
-        let w = view.getVisibleSize().width;
-        let h = view.getVisibleSize().height;
+    showTipsWithOkCancelBtn(word: string, okCb = null, cancelCb = null, closeCb = null, showCb?) {
         resources.load("DialogLayer", Prefab, (err, prefab: Prefab) => {
             if (!err) {
                 let layer: Node = instantiate(prefab);
-                this.addToCanvas(layer);
+                addToCanvas(layer);
 
                 let script = layer.getComponent(DialogLayer);
                 if (script) {
@@ -40,13 +41,10 @@ export default {
     },
     // 只有一个确定按钮
     showTipsWithOkBtnAndNoCloseBtn(word: string, okCb = null, cancelCb = null, showCb = null) {
-
-        let w = view.getVisibleSize().width;
-        let h = view.getVisibleSize().height;
         resources.load("DialogLayer", (err, prefab: Prefab) => {
             if (!err) {
                 let layer: Node = instantiate(prefab);
-                this.addToCanvas(layer);
+                addToCanvas(layer);
                 let script = layer.getComponent(DialogLayer);
                 if (script) {
                     script.showTipsWithOkBtn(word, okCb, cancelCb);
@@ -57,13 +55,5 @@ export default {
                 }
             }
         });
-
     },
-    addToCanvas(node: Node) {
-        const canvas = find("Canvas");
-        if (canvas) {
-            node.setPosition(0, 0);
-            canvas.addChild(node);
-        }
-    }
 }
