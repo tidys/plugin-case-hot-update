@@ -1,11 +1,11 @@
 {
-  "ver": "1.0.0",
+  "ver": "1.0.1",
   "importer": "*",
   "imported": true,
   "uuid": "d19571f0-686d-46ef-a8be-dceab494e5b6",
   "files": [
-    ".manifest",
-    ".json"
+    ".json",
+    ".manifest"
   ],
   "subMetas": {},
   "userData": {}
